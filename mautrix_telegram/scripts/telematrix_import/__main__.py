@@ -40,6 +40,8 @@ telematrix_db_engine.dispose()
 portals = {}
 
 for chat_link in chat_links:
+    if type(chat_link.tg_room) == "str":
+        print("Expected tg_room to be a number, got a string: %s" % chat_link.tg_room)
     if chat_link.tg_room >= 0:
         print("Unexpected unprefixed telegram chat ID: %s, ignoring..." % chat_link.tg_room)
         continue

@@ -20,10 +20,14 @@ RUN apk add --no-cache \
       ca-certificates \
       su-exec \
       s6 \
+      dos2unix \
  && cd /opt/mautrixtelegram \
  && cp -r docker/root/* / \
  && rm docker -rf \
- && pip3 install -r requirements.txt -r optional-requirements.txt
+ && pip3 install -r requirements.txt -r optional-requirements.txt \
+ && dos2unix /etc/s6.d/.s6-svscan/finish \
+ && dos2unix /etc/s6.d/mautrix-telegram/finish \
+ && dos2unix /etc/s6.d/mautrix-telegram/run
 
 VOLUME /data
 
