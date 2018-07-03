@@ -39,6 +39,7 @@ telematrix_db_engine.dispose()
 
 portals = {}
 chats = {}
+messages = {}
 puppets = {}
 
 for chat_link in chat_links:
@@ -64,11 +65,6 @@ for chat_link in chat_links:
     portals[chat_link.tg_room] = portal
     chats[tgid] = bot_chat
 
-for k, v in portals.items():
-    mxtg.add(v)
-for k, v in chats.items():
-    mxtg.add(v)
-
 for tm_msg in messages:
     try:
         portal = portals[tm_msg.tg_group_id]
@@ -78,10 +74,17 @@ for tm_msg in messages:
     tg_space = portal.tgid if portal.peer_type == "channel" else args.bot_id
     message = Message(mxid=tm_msg.matrix_event_id, mx_room=tm_msg.matrix_room_id,
                       tgid=tm_msg.tg_message_id, tg_space=tg_space)
-    mxtg.add(message)
+    messages[tm_msg.matrix_event_id] = message
 
 for user in tg_users:
     puppets[user.tg_id] = Puppet(id=user.tg_id, displayname=user.name, displayname_source=args.bot_id)
+
+for k, v in portals.items():
+    mxtg.add(v)
+for k, v in chats.items():
+    mxtg.add(v)
+for k, v in messages.items():
+    mxtg.add(v)
 for k, v in puppets.items():
     mxtg.add(v)
 
