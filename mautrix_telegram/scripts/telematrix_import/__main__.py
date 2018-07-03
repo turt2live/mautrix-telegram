@@ -39,6 +39,7 @@ telematrix_db_engine.dispose()
 
 portals = {}
 chats = {}
+puppets = {}
 
 for chat_link in chat_links:
     if type(chat_link.tg_room) is str:
@@ -79,6 +80,9 @@ for tm_msg in messages:
                       tgid=tm_msg.tg_message_id, tg_space=tg_space)
     mxtg.add(message)
 
-mxtg.add_all(Puppet(id=user.tg_id, displayname=user.name, displayname_source=args.bot_id)
-             for user in tg_users)
+for user in tg_users:
+    puppets[user.tg_id] = Puppet(id=user.tg_id, displayname=user.name, displayname_source=args.bot_id)
+for k, v in puppets.items():
+    mxtg.add(v)
+
 mxtg.commit()
