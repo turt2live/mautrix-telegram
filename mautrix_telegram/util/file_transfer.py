@@ -175,6 +175,7 @@ async def _unlocked_transfer_file_to_matrix(db, client, intent, id, location, th
 
     uploaded = await intent.upload_file(file, mime_type)
 
+    log.info("Uploaded: ", uploaded)
     db_file = DBTelegramFile(id=id, mxc=uploaded["content_uri"],
                              mime_type=mime_type, was_converted=image_converted,
                              timestamp=int(time.time()), size=len(file),
