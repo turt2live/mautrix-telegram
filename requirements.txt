@@ -1,5 +1,5 @@
 aiohttp
-mautrix-appservice
+git+https://github.com/turt2live/mautrix-appservice-python@travis/appservice-txn#egg=mautrix-appservice
 ruamel.yaml
 python-magic
 SQLAlchemy

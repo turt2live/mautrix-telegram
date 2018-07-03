@@ -20,6 +20,7 @@ RUN apk add --no-cache \
       ca-certificates \
       su-exec \
       s6 \
+      git \
       dos2unix \
  && cd /opt/mautrixtelegram \
  && cp -r docker/root/* / \
