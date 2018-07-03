@@ -30,5 +30,6 @@ RUN apk add --no-cache \
  && dos2unix /etc/s6.d/mautrix-telegram/run
 
 VOLUME /data
+EXPOSE 8080
 
 CMD ["/bin/s6-svscan", "/etc/s6.d"]
