@@ -38,6 +38,7 @@ telematrix.close()
 telematrix_db_engine.dispose()
 
 portals = {}
+chats = {}
 
 for chat_link in chat_links:
     if type(chat_link.tg_room) is str:
@@ -58,11 +59,14 @@ for chat_link in chat_links:
 
     portal = Portal(tgid=tgid, tg_receiver=tgid, peer_type=peer_type, megagroup=megagroup,
                     mxid=chat_link.matrix_room)
-    portals[chat_link.tg_room] = portal
-    mxtg.add(portal)
-
     bot_chat = BotChat(id=tgid, type=peer_type)
-    mxtg.add(bot_chat)
+    portals[chat_link.tg_room] = portal
+    chats[tgid] = bot_chat
+
+for k, v in portals.items():
+    mxtg.add(v)
+for k, v in chats.items():
+    mxtg.add(v)
 
 for tm_msg in messages:
     try:
